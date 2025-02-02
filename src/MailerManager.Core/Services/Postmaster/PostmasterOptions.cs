@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace MailerManager.Infrastructure.Services.Postmaster;
+namespace MailerManager.Core.Services.Postmaster;
 
 public class PostmasterOptions
 {

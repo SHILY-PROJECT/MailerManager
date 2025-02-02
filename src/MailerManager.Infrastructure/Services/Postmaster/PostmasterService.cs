@@ -5,22 +5,18 @@ using MailerManager.Core.Services.MailRuManager;
 using MailerManager.Core.Services.Postmaster;
 using MailerManager.Infrastructure.Services.Postmaster.Exceptions;
 using MailerManager.Infrastructure.Services.Postmaster.Responses;
-using Microsoft.Extensions.Options;
 using RestSharp;
-using RestSharp.Authenticators;
 
 namespace MailerManager.Infrastructure.Services.Postmaster;
 
 public class PostmasterService(
-    PostmasterContext postmasterContext,
-    IOptions<PostmasterOptions> options,
+    IPostmasterContext postmasterContext,
     IHttpClientFactory httpClientFactory,
     IMailRuAccessTokenManagerService accessTokenManagerService)
     : IPostmasterService
 {
     private readonly RestClient _client = new(httpClientFactory.CreateClient(HttpClientNames.Postmaster));
-    private readonly PostmasterContext _context = postmasterContext;
-    private readonly IOptions<PostmasterOptions> _options = options;
+    private readonly IPostmasterContext _context = postmasterContext;
     private readonly IMailRuAccessTokenManagerService _accessTokenManagerService = accessTokenManagerService;
     
     public async Task<Result> RunAsync()

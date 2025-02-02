@@ -1,6 +1,6 @@
 ﻿using MailerManager.Core.Common.Constants;
+using MailerManager.Core.Services.Postmaster;
 using MailerManager.Infrastructure.Clients.MailRu;
-using MailerManager.Infrastructure.Services.Postmaster;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

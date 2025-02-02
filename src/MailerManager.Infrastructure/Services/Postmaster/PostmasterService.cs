@@ -45,6 +45,7 @@ public class PostmasterService(
         {
             { StatusCode: HttpStatusCode.Forbidden } => throw new AccessTokenRefreshRequiredException(),
             { Data: null } => throw new PostmasterResponseException("Data is null"),
+            { Data.Domains: null } => throw new PostmasterResponseException("Domains is null"),
             { Data.Domains.Count: <= 0 } => throw new PostmasterResponseException("Domains is empty"),
             
             var r => r.Data.Domains 

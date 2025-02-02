@@ -11,8 +11,9 @@ public static class InfrastructureRegistration
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddOptions(configuration);
         services.AddHttpClient();
+        services.AddOptions(configuration);
+        services.AddHttpClients();
         
         return services;
     }
@@ -32,7 +33,7 @@ public static class InfrastructureRegistration
     
     private static IServiceCollection AddHttpClients(this IServiceCollection services)
     {
-        services.AddHttpClient(HttpClientNames.MailRu, (service, client) => client.BaseAddress = new(service.GetRequiredService<IOptions<MailRuOptions>>().Value.AuthUrl));
+        services.AddHttpClient(HttpClientNames.MailRu, (service, client) => client.BaseAddress = new(service.GetRequiredService<IOptions<PostmasterOptions>>().Value.AuthUrl));
         services.AddHttpClient(HttpClientNames.Postmaster, (service, client) => client.BaseAddress = new(service.GetRequiredService<IOptions<PostmasterOptions>>().Value.Url));
         
         return services;

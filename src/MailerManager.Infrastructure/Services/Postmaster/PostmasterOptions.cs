@@ -10,6 +10,9 @@ public class PostmasterOptions
     public string Url { get; set; }
     
     [Required]
+    public string AuthUrl { get; set; }
+    
+    [Required]
     [JsonPropertyName("access_token")]
     public string AccessToken { get; set; }
 

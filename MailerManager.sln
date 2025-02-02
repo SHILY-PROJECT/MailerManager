@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailerManager.App", "src\MailerManager.App\MailerManager.App.csproj", "{06D7B4E3-29B0-4317-AC99-B0501885257B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDA2DCE4-9E4B-4B5E-AD68-573B861E07F2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailerManager.Core", "src\MailerManager.Core\MailerManager.Core.csproj", "{31D04875-9614-412B-BE5C-4780EBBDB0EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailerManager.ConsoleApp", "src\MailerManager.ConsoleApp\MailerManager.ConsoleApp.csproj", "{00F2B4E5-B4DC-47AD-937C-C29A4D0B6B70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailerManager.MailerManagerService", "src\MailerManager.MailerManagerService\MailerManager.MailerManagerService.csproj", "{1BD09BBA-A9B4-49DB-A165-5D2E90EF01FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailerManager.Infrastructure", "src\MailerManager.Infrastructure\MailerManager.Infrastructure.csproj", "{9FF657C9-CB20-4CDD-94EB-41079DC69312}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +23,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{06D7B4E3-29B0-4317-AC99-B0501885257B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06D7B4E3-29B0-4317-AC99-B0501885257B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06D7B4E3-29B0-4317-AC99-B0501885257B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06D7B4E3-29B0-4317-AC99-B0501885257B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31D04875-9614-412B-BE5C-4780EBBDB0EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31D04875-9614-412B-BE5C-4780EBBDB0EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31D04875-9614-412B-BE5C-4780EBBDB0EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31D04875-9614-412B-BE5C-4780EBBDB0EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00F2B4E5-B4DC-47AD-937C-C29A4D0B6B70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00F2B4E5-B4DC-47AD-937C-C29A4D0B6B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F2B4E5-B4DC-47AD-937C-C29A4D0B6B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00F2B4E5-B4DC-47AD-937C-C29A4D0B6B70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD09BBA-A9B4-49DB-A165-5D2E90EF01FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD09BBA-A9B4-49DB-A165-5D2E90EF01FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD09BBA-A9B4-49DB-A165-5D2E90EF01FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD09BBA-A9B4-49DB-A165-5D2E90EF01FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF657C9-CB20-4CDD-94EB-41079DC69312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF657C9-CB20-4CDD-94EB-41079DC69312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF657C9-CB20-4CDD-94EB-41079DC69312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF657C9-CB20-4CDD-94EB-41079DC69312}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

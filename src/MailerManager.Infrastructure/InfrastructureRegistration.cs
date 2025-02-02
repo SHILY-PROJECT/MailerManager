@@ -34,7 +34,10 @@ public static class InfrastructureRegistration
     private static IServiceCollection AddHttpClients(this IServiceCollection services)
     {
         services.AddHttpClient(HttpClientNames.MailRu, (service, client) => client.BaseAddress = new(service.GetRequiredService<IOptions<PostmasterOptions>>().Value.AuthUrl));
-        services.AddHttpClient(HttpClientNames.Postmaster, (service, client) => client.BaseAddress = new(service.GetRequiredService<IOptions<PostmasterOptions>>().Value.Url));
+        
+        services
+            .AddHttpClient(HttpClientNames.Postmaster, (service, client) => client.BaseAddress = new(service.GetRequiredService<IOptions<PostmasterOptions>>().Value.Url))
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { ServerCertificateCustomValidationCallback = (_, _, _, _) => true });
         
         return services;
     }

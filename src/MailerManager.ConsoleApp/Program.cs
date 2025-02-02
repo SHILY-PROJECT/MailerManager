@@ -5,5 +5,6 @@ using Microsoft.Extensions.Hosting;
 
 var host = Host.CreateDefaultBuilder().ConfigureServices(s => s.AddConsoleApp()).Build();
 
-var mailerManager = host.Services.GetRequiredService<IMailerManagerService>();
+await using var scope = host.Services.CreateAsyncScope();
+var mailerManager = scope.ServiceProvider.GetRequiredService<IMailerManagerService>();
 var result = await mailerManager.RunAsync();

@@ -2,20 +2,34 @@
 using MailerManager.Core.Clients.MailRu;
 using MailerManager.Core.Services.MailRuManager;
 using MailerManager.Infrastructure.Services.Postmaster;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace MailerManager.Infrastructure.Services.MailRuManager;
 
-public class MailRuAccessTokenManagerService(IOptions<PostmasterOptions> options, IMailRuClient mailRuClient) : IMailRuAccessTokenManagerService
+public class MailRuAccessTokenManagerService(
+    ILogger<MailRuAccessTokenManagerService> logger, 
+    IOptions<PostmasterOptions> options, 
+    IMailRuClient mailRuClient) 
+    : IMailRuAccessTokenManagerService
 {
     private const string FileName = "access_token.json";
 
     public async Task<IMailRuAccessToken> GetAccessTokenAsync()
     {
         IMailRuAccessToken? token = null;
-            
+
         if (File.Exists(FileName))
-            token = JsonSerializer.Deserialize<MailRuAccessToken>(await File.ReadAllTextAsync(FileName));
+        {
+            try
+            {
+                token = JsonSerializer.Deserialize<MailRuAccessToken>(await File.ReadAllTextAsync(FileName));
+            }
+            catch (JsonException ex)
+            {
+                logger.LogWarning(ex.Message, ex);
+            }
+        }
 
         return token is not null && !string.IsNullOrEmpty(token.AccessToken) ? token : await RefreshAccessTokenWithSyncFileAsync();
     }

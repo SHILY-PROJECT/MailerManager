@@ -8,10 +8,10 @@ public class GetDomainDetailsResponse
     public bool Ok { get; set; }
     
     [JsonPropertyName("data")]
-    public List<DetailStatisticModel> Data { get; set; }
+    public List<DomainStatisticsModel> Data { get; set; }
 }
 
-public class DetailStatisticModel
+public class DomainStatisticsModel
 {
     [JsonPropertyName("domain")]
     public string Domain { get; set; }

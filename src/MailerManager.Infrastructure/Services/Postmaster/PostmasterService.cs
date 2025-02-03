@@ -49,27 +49,27 @@ public class PostmasterService(
 
     public async Task<List<DomainModel>> GetDomainsAsync()
     {
-        var request = new RestRequest("/ext-api/reg-list/", Method.Get);
+        var request = new RestRequest("/ext-api/reg-list/");
         
         request.AddHeader(_context.Options.TokenType, _context.Token.AccessToken);
         
-        var response = await _client.ExecuteAsync<GetDomainsResponse>(request) switch
+        var response = await _client.ExecuteAsync<GetDomainsResponse>(request);
+        
+        return response switch
         {
             { StatusCode: HttpStatusCode.Forbidden } => throw new AccessTokenRefreshRequiredException(),
-            { Data: null } => throw new PostmasterResponseException("Data is null"),
-            { Data.Domains: null } => throw new PostmasterResponseException("Domains is null"),
-            { Data.Domains.Count: <= 0 } => throw new PostmasterResponseException("Domains is empty"),
+            { Data: null } => throw new PostmasterResponseException("Data is null. Content: " + response.Content),
+            { Data.Domains: null } => throw new PostmasterResponseException("Domains is null. Content: " + response.Content),
+            { Data.Domains.Count: <= 0 } => throw new PostmasterResponseException("Domains is empty. Content: " + response.Content),
             
-            var r => r.Data.Domains 
+            _ => response.Data.Domains 
         };
-        
-        return response;
     }
 
     public async Task<DomainStatisticsModel> GetStatisticsForSingleDomainAsync(DomainModel domain)
     {
-        return (await GetDomainStatisticsAsync(new()
-        {
+        return (await GetDomainStatisticsAsync(new QueryParameterOptions
+            {
             Domain = domain.Domain,
             MsgType = QueryParameterValues.HotNews,
             DateFrom = DateTime.Now.AddMonths(-2)
@@ -79,7 +79,7 @@ public class PostmasterService(
 
     public async Task<List<DomainStatisticsModel>> GetStatisticsForAllDomainsAsync()
     {
-        return await GetDomainStatisticsAsync(new()
+        return await GetDomainStatisticsAsync(new QueryParameterOptions
         {
             DateFrom = DateTime.Now.AddMonths(-2)
         });
@@ -87,7 +87,7 @@ public class PostmasterService(
 
     private async Task<List<DomainStatisticsModel>> GetDomainStatisticsAsync(QueryParameterOptions queryParameterOptions)
     {
-        var request = new RestRequest("/ext-api/stat-list/", Method.Get);
+        var request = new RestRequest("/ext-api/stat-list/");
         
         request
             .AddHeader(_context.Options.TokenType, _context.Token.AccessToken);
@@ -107,7 +107,7 @@ public class PostmasterService(
             { Data.Data: null } => throw new PostmasterResponseException("Mail data is null. Content: " + response.Content),
             { Data.Data.Count: <= 0 } => throw new PostmasterResponseException("Mail data is empty. Content: " + response.Content),
 
-            var r => r.Data.Data
+            _ => response.Data.Data
         };
     }
 }

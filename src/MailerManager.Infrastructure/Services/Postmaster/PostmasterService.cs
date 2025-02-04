@@ -32,16 +32,28 @@ public class PostmasterService(
         
         Console.WriteLine(new string('-', Console.WindowWidth));
         
-        var statisticsForSingle = await GetStatisticsForSingleDomainAsync(domains.First());
-        Console.WriteLine($"{nameof(GetStatisticsForSingleDomainAsync).ToUpper()} RESULT:");
+        var statisticsForSingle = await GetStatsForSingleDomainAsync(domains.First());
+        Console.WriteLine($"{nameof(GetStatsForSingleDomainAsync).ToUpper()} RESULT:");
         Console.WriteLine(JsonSerializer.Serialize(statisticsForSingle, new JsonSerializerOptions { WriteIndented = true }));
 
         Console.WriteLine(new string('-', Console.WindowWidth));
         
-        var statisticsForAll = await GetStatisticsForAllDomainsAsync();
-        Console.WriteLine($"{nameof(GetStatisticsForAllDomainsAsync).ToUpper()} RESULT:");
+        var statisticsForAll = await GetStatsForAllDomainsAsync();
+        Console.WriteLine($"{nameof(GetStatsForAllDomainsAsync).ToUpper()} RESULT:");
         Console.WriteLine(JsonSerializer.Serialize(statisticsForAll, new JsonSerializerOptions { WriteIndented = true }));
-        
+
+        foreach (var domain in domains)
+        {
+            Console.WriteLine(new string('-', Console.WindowWidth));
+            var domainStatsOfDays = await GetDomainStatsOfDaysAsync(domain);
+
+            if (domainStatsOfDays.Data.Any())
+            {
+                Console.WriteLine($"{nameof(GetStatsForAllDomainsAsync).ToUpper()} RESULT:");
+                Console.WriteLine(JsonSerializer.Serialize(domainStatsOfDays, new JsonSerializerOptions { WriteIndented = true }));
+            }
+        }
+
         await Task.Delay(TimeSpan.FromSeconds(1));
         
         return Result.Ok();
@@ -66,26 +78,62 @@ public class PostmasterService(
         };
     }
 
-    public async Task<DomainStatisticsModel> GetStatisticsForSingleDomainAsync(DomainModel domain)
+    public async Task<DomainStatsModel> GetStatsForSingleDomainAsync(DomainModel domain)
     {
-        return (await GetDomainStatisticsAsync(new QueryParameterOptions
-            {
+        return (await GetDomainStatsAsync(new QueryParameterOptions
+        {
             Domain = domain.Domain,
-            MsgType = QueryParameterValues.HotNews,
-            DateFrom = DateTime.Now.AddMonths(-2)
+            DateFrom = DateTime.Now.AddMonths(-5),
+            // MsgType = QueryParameterValues.HotNews
         }))
         .First();
     }
 
-    public async Task<List<DomainStatisticsModel>> GetStatisticsForAllDomainsAsync()
+    public async Task<List<DomainStatsModel>> GetStatsForAllDomainsAsync()
     {
-        return await GetDomainStatisticsAsync(new QueryParameterOptions
+        return await GetDomainStatsAsync(new QueryParameterOptions
         {
             DateFrom = DateTime.Now.AddMonths(-2)
         });
     }
 
-    private async Task<List<DomainStatisticsModel>> GetDomainStatisticsAsync(QueryParameterOptions queryParameterOptions)
+    public async Task<DomainStatsOfDays> GetDomainStatsOfDaysAsync(DomainModel domain)
+    {
+        return await GetDomainStatsOfDaysAsync(new QueryParameterOptions
+        {
+            Domain = domain.Domain,
+            DateFrom = DateTime.Now.AddMonths(-2),
+            MsgType = QueryParameterValues.HotNews
+        });
+    }
+
+    public async Task<DomainStatsOfDays> GetDomainStatsOfDaysAsync(QueryParameterOptions queryParameterOptions)
+    {
+        var request = new RestRequest("/ext-api/stat-list-detailed/");
+        
+        request
+            .AddHeader(_context.Options.TokenType, _context.Token.AccessToken);
+        
+        request
+            .AddQueryParameterWhereValueNotNull(QueryParameterNames.Domain, queryParameterOptions.Domain)
+            .AddQueryParameterWhereValueNotNull(QueryParameterNames.DateFrom, queryParameterOptions.DateFrom?.ToString("yyyy-MM-dd"))
+            .AddQueryParameterWhereValueNotNull(QueryParameterNames.DateTo, queryParameterOptions.DateTo?.ToString("yyyy-MM-dd"))
+            .AddQueryParameterWhereValueNotNull(QueryParameterNames.MsgType, queryParameterOptions.MsgType);
+
+        var response = await _client.ExecuteAsync<GetDomainStatsDaysResponse>(request);
+
+        return response switch
+        {
+            { StatusCode: HttpStatusCode.Forbidden } => throw new AccessTokenRefreshRequiredException(),
+            { Data: null } => throw new PostmasterResponseException("Data is null. Content: " + response.Content),
+            { Data.Data: null } => throw new PostmasterResponseException("Mail data is null. Content: " + response.Content),
+            { Data.Data.Count: <= 0 } => throw new PostmasterResponseException("Mail data is empty. Content: " + response.Content),
+
+            _ => response.Data.Data.First()
+        };
+    }
+
+    private async Task<List<DomainStatsModel>> GetDomainStatsAsync(QueryParameterOptions queryParameterOptions)
     {
         var request = new RestRequest("/ext-api/stat-list/");
         
@@ -98,7 +146,7 @@ public class PostmasterService(
             .AddQueryParameterWhereValueNotNull(QueryParameterNames.DateTo, queryParameterOptions.DateTo?.ToString("yyyy-MM-dd"))
             .AddQueryParameterWhereValueNotNull(QueryParameterNames.MsgType, queryParameterOptions.MsgType);
 
-        var response = await _client.ExecuteAsync<GetDomainDetailsResponse>(request);
+        var response = await _client.ExecuteAsync<GetDomainStatsResponse>(request);
         
         return response switch
         {

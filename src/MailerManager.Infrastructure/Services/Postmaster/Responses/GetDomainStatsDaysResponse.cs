@@ -2,20 +2,26 @@
 
 namespace MailerManager.Infrastructure.Services.Postmaster.Responses;
 
-public class GetDomainDetailsResponse
+public class GetDomainStatsDaysResponse
 {
     [JsonPropertyName("ok")]
     public bool Ok { get; set; }
-    
+
     [JsonPropertyName("data")]
-    public List<DomainStatisticsModel> Data { get; set; }
+    public List<DomainStatsOfDays> Data { get; set; }
 }
 
-public class DomainStatisticsModel
+public class DomainStatsOfDays
 {
     [JsonPropertyName("domain")]
     public string Domain { get; set; }
 
+    [JsonPropertyName("data")]
+    public List<StatsOfDay> Data { get; set; }
+}
+
+public class StatsOfDay
+{
     [JsonPropertyName("delivered")]
     public int Delivered { get; set; }
 
@@ -32,10 +38,13 @@ public class DomainStatisticsModel
     public int Read { get; set; }
 
     [JsonPropertyName("spam_percent")]
-    public double SpamPercent { get; set; }
+    public int SpamPercent { get; set; }
 
-    [JsonPropertyName("probably_spam_percent")]
-    public double ProbablySpamPercent { get; set; }
+    [JsonPropertyName("date")]
+    public string Date { get; set; }
+
+    [JsonPropertyName("reputation")]
+    public double Reputation { get; set; }
 
     [JsonPropertyName("complaints")]
     public int Complaints { get; set; }
@@ -45,4 +54,10 @@ public class DomainStatisticsModel
 
     [JsonPropertyName("probably_spam")]
     public int ProbablySpam { get; set; }
+
+    [JsonPropertyName("trend")]
+    public double Trend { get; set; }
+
+    [JsonPropertyName("probably_spam_percent")]
+    public double ProbablySpamPercent { get; set; }
 }

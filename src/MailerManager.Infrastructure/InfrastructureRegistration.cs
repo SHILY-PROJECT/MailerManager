@@ -1,4 +1,6 @@
 ﻿using MailerManager.Core.Common.Constants;
+using MailerManager.Core.Services.MailerManager;
+using MailerManager.Core.Services.MailWizz;
 using MailerManager.Core.Services.Postmaster;
 using MailerManager.Infrastructure.Clients.MailRu;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,14 @@ public static class InfrastructureRegistration
         
         services.AddOptions<PostmasterOptions>()
             .Bind(configuration.GetSection(nameof(PostmasterOptions)))
+            .ValidateDataAnnotations();
+        
+        services.AddOptions<PlaywrightOptions>()
+            .Bind(configuration.GetSection(nameof(PlaywrightOptions)))
+            .ValidateDataAnnotations();
+        
+        services.AddOptions<MailWizzOptions>()
+            .Bind(configuration.GetSection(nameof(MailWizzOptions)))
             .ValidateDataAnnotations();
         
         return services;

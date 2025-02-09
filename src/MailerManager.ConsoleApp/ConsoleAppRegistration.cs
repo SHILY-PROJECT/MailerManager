@@ -19,7 +19,7 @@ public static class ConsoleAppRegistration
         services.AddHttpClient();
         services.AddCore();
         services.AddInfrastructure(cfg);
-        services.AddMailerManagerServices();
+        services.AddMailerManagerServices(cfg);
 
         return services;
     }

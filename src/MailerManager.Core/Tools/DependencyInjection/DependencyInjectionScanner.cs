@@ -7,9 +7,9 @@ public static class DependencyInjectionScanner
 {
     private static readonly Dictionary<Type, ServiceLifetime> InterfaceToLifetimeMap = new()
     {
-        [typeof(Common.DependencyInjection.ITransientDependency)] = ServiceLifetime.Transient,
-        [typeof(Common.DependencyInjection.IScopedDependency)] = ServiceLifetime.Scoped,
-        [typeof(Common.DependencyInjection.ISingletonDependency)] = ServiceLifetime.Singleton,
+        [typeof(ITransientDependency)] = ServiceLifetime.Transient,
+        [typeof(IScopedDependency)] = ServiceLifetime.Scoped,
+        [typeof(ISingletonDependency)] = ServiceLifetime.Singleton,
     };
     
     public static IServiceCollection ScanDependencies(this IServiceCollection services, Assembly[] assemblies)

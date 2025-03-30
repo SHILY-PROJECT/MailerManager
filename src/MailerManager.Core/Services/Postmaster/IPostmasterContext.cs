@@ -1,5 +1,5 @@
-﻿using MailerManager.Core.Common.DependencyInjection;
-using MailerManager.Core.Services.MailRuManager;
+﻿using MailerManager.Core.Services.MailRuManager;
+using MailerManager.Core.Tools.DependencyInjection;
 
 namespace MailerManager.Core.Services.Postmaster;
 

@@ -1,5 +1,5 @@
 ﻿using FluentResults;
-using MailerManager.Core.Common.DependencyInjection;
+using MailerManager.Core.Tools.DependencyInjection;
 using Microsoft.Playwright;
 
 namespace MailerManager.Infrastructure.Services.MailWizz;

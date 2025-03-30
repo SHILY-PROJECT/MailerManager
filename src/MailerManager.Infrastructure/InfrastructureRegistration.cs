@@ -1,4 +1,4 @@
-﻿using MailerManager.Core.Common.Constants;
+﻿using MailerManager.Core.Constants;
 using MailerManager.Core.Services.MailerManager;
 using MailerManager.Core.Services.MailWizz;
 using MailerManager.Core.Services.Postmaster;

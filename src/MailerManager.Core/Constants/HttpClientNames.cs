@@ -1,4 +1,4 @@
-﻿namespace MailerManager.Core.Common.Constants;
+﻿namespace MailerManager.Core.Constants;
 
 public static class HttpClientNames
 {

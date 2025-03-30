@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailerManager.MailerManager
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailerManager.Infrastructure", "src\MailerManager.Infrastructure\MailerManager.Infrastructure.csproj", "{9FF657C9-CB20-4CDD-94EB-41079DC69312}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailerManager.Api", "src\MailerManager.Api\MailerManager.Api.csproj", "{7727981A-4FD8-4D86-B94B-9EE566333559}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9FF657C9-CB20-4CDD-94EB-41079DC69312}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FF657C9-CB20-4CDD-94EB-41079DC69312}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FF657C9-CB20-4CDD-94EB-41079DC69312}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7727981A-4FD8-4D86-B94B-9EE566333559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7727981A-4FD8-4D86-B94B-9EE566333559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7727981A-4FD8-4D86-B94B-9EE566333559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7727981A-4FD8-4D86-B94B-9EE566333559}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

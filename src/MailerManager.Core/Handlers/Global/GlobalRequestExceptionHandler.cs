@@ -9,7 +9,7 @@ public class GlobalRequestExceptionHandler<TRequest, TResponse, TException>(ILog
     where TResponse : BaseCommandResult, new()
     where TException : Exception
 {
-    public System.Threading.Tasks.Task Handle(TRequest request, TException exception, RequestExceptionHandlerState<TResponse> state, CancellationToken cancellationToken)
+    public Task Handle(TRequest request, TException exception, RequestExceptionHandlerState<TResponse> state, CancellationToken cancellationToken)
     {
         logger.LogWarning(exception, $"$SyncId={request.SyncId} Method={GetType().Name}.{nameof(Handle)} Error. RequestType: {typeof(TRequest).Name}");
         
@@ -20,6 +20,6 @@ public class GlobalRequestExceptionHandler<TRequest, TResponse, TException>(ILog
             Message = exception.Message
         });
         
-        return System.Threading.Tasks.Task.CompletedTask;
+        return Task.CompletedTask;
     }
 }

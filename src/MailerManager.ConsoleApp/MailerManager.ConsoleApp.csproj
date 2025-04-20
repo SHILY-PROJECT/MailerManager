@@ -29,7 +29,6 @@
     <ItemGroup>
       <ProjectReference Include="..\MailerManager.Core\MailerManager.Core.csproj" />
       <ProjectReference Include="..\MailerManager.Infrastructure\MailerManager.Infrastructure.csproj" />
-      <ProjectReference Include="..\MailerManager.MailerManagerService\MailerManager.MailerManagerService.csproj" />
     </ItemGroup>
 
     <ItemGroup>

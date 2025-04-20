@@ -1,5 +1,4 @@
 ﻿using FluentResults;
-using MailerManager.Core.Services.MailRuManager;
 
 namespace MailerManager.Core.Clients.MailRu;
 

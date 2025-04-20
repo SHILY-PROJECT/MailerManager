@@ -1,9 +1,9 @@
 ﻿using FluentResults;
 using MailerManager.Core.Context;
 
-namespace MailerManager.Core.Services.MailWizz;
+namespace MailerManager.Core.Actions;
 
-public interface IMailWizzService : IService
+public interface IAction
 {
     Task<Result> ExecuteAsync(MailerManagerContext context);
 }

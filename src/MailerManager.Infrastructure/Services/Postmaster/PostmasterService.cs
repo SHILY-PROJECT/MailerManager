@@ -2,7 +2,7 @@
 using System.Text.Json;
 using FluentResults;
 using MailerManager.Core.Constants;
-using MailerManager.Core.Services.MailRuManager;
+using MailerManager.Core.Services.MailRu;
 using MailerManager.Core.Services.Postmaster;
 using MailerManager.Infrastructure.Extensions.RestSharp;
 using MailerManager.Infrastructure.Services.Postmaster.Constants;

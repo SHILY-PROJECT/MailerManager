@@ -1,7 +1,6 @@
 ﻿using FluentResults;
 using MailerManager.Core.Clients.MailRu;
 using MailerManager.Core.Constants;
-using MailerManager.Core.Services.MailRuManager;
 using Microsoft.Extensions.Logging;
 using RestSharp;
 

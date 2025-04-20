@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using MailerManager.Core.Clients.MailRu;
-using MailerManager.Core.Services.MailRuManager;
+using MailerManager.Core.Services.MailRu;
 using MailerManager.Core.Services.Postmaster;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

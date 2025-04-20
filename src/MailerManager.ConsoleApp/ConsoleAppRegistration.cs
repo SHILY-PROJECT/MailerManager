@@ -2,7 +2,6 @@
 using MailerManager.Core;
 using MailerManager.Core.Tools.DependencyInjection;
 using MailerManager.Infrastructure;
-using MailerManager.MailerManagerService;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,8 +18,7 @@ public static class ConsoleAppRegistration
         services.AddHttpClient();
         services.AddCore();
         services.AddInfrastructure(cfg);
-        services.AddMailerManagerServices(cfg);
-        services.ScanDependencies([assembly,  typeof(CoreRegistration).Assembly, typeof(InfrastructureRegistration).Assembly, typeof(MailerManagerServiceRegistration).Assembly]);
+        services.ScanDependencies([assembly,  typeof(CoreRegistration).Assembly, typeof(InfrastructureRegistration).Assembly]);
 
         return services;
     }

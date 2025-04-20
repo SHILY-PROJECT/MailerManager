@@ -2,7 +2,6 @@ using System.Reflection;
 using MailerManager.Api;
 using MailerManager.Core;
 using MailerManager.Infrastructure;
-using MailerManager.MailerManagerService;
 using Scalar.AspNetCore;
 
 var assembly = Assembly.GetExecutingAssembly();
@@ -12,7 +11,6 @@ builder.Services.AddOpenApi();
 builder.Services.AddApi(assembly);
 builder.Services.AddCore();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddMailerManagerServices(builder.Configuration);;
 
 var app = builder.Build();
 

@@ -1,5 +1,5 @@
 ﻿
-namespace MailerManager.Core.Services.MailRuManager;
+namespace MailerManager.Core.Services.MailRu;
 
 public interface IMailRuAccessToken
 {

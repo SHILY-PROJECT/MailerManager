@@ -1,4 +1,4 @@
-﻿using MailerManager.Core.Services.MailRuManager;
+﻿using MailerManager.Core.Services.MailRu;
 using MailerManager.Core.Services.Postmaster;
 using Microsoft.Extensions.Options;
 

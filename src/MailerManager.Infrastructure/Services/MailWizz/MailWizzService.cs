@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using MailerManager.Core.Context;
 using MailerManager.Core.Services.MailerManager;
 using MailerManager.Core.Services.MailWizz;
 using Microsoft.Extensions.Logging;
@@ -17,22 +18,20 @@ public class MailWizzService(
     private readonly IMailWizzAuthentication _mailWizzAuthentication = mailWizzAuthentication;
     private readonly IOptions<MailWizzOptions> _mailWizzOptions = mailWizzOptions;
     private readonly IOptions<PlaywrightOptions> _playwrightOptions = playwrightOptions;
+
+    public MailerManagerContext Context { get; set; } = null!;
     
-    public async Task<Result> RunAsync()
+    public async Task<Result> ExecuteAsync(MailerManagerContext context)
     {
+        Context = context;
+        
         await AuthMailWizzAsync();
         return Result.Ok();
     }
     
     private async Task AuthMailWizzAsync()
     {
-        using var playwright = await Playwright.CreateAsync();
-        
-        await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
-        {
-            ExecutablePath = _playwrightOptions.Value.ExecutablePath,
-            Headless = _playwrightOptions.Value.Headless
-        });
+        var browser = await Context.GetBrowserAsync();
         
         var authResult = await _mailWizzAuthentication.AuthIfNeed(browser);
         
